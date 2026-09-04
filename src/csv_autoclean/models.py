@@ -2,9 +2,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
+
 # Profiler output
-
-
 class ColumnProfile(BaseModel):
     name: str
     dtype: str
@@ -62,8 +61,6 @@ class DataProfile(BaseModel):
 
 
 # Validator output
-
-
 class ValidationRule(BaseModel):
     column: str
     rule_description: str
@@ -93,8 +90,6 @@ class ValidationReport(BaseModel):
 
 
 # Repairer output
-
-
 class RepairAction(BaseModel):
     column: str
     issue: str
@@ -134,8 +129,6 @@ class RepairReport(BaseModel):
 
 
 # Pipeline context (passed to Reporter)
-
-
 class PipelineContext(BaseModel):
     input_path: str
     output_path: str
