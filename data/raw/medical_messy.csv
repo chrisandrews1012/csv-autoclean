@@ -1,0 +1,401 @@
+patient_id,age,diagnosis,blood_type,admission_date,treatment_cost,insurance_provider,follow_up_required
+1,82,Diabetes,A+,2025-08-03,14856.85,BlueCross,True
+2,18,,A-,2023-09-30,11850.8,Aetna,True
+3,12,Migraine,B-,2024-06-30,10156.57,Aetna,True
+4,92,,B-,2024-05-04,9039.26,UnitedHealth,True
+5,21,Anxiety Disorder,AB-,2025-11-18,5629.64,BlueCross,False
+6,14,Diabetes,O+,2025-09-13,2024.66,UnitedHealth,False
+7,6,Substance Use Disorder,A-,2026-05-07,19465.0,Medicare,True
+8,71,Arthritis,AB-,2023-12-07,11589.31,Aetna,True
+9,85,Migraine,AB+,2024-12-08,19705.91,BlueCross,True
+10,49,,O-,2023-10-05,12750.12,UnitedHealth,True
+11,48,,B-,2024-04-29,13436.49,Aetna,True
+12,69,Migraine,B+,2025-03-09,9298.98,UnitedHealth,True
+13,88,,A+,2023-10-02,4658.06,Aetna,False
+14,52,Arthritis,A-,2024-04-07,4298.56,Self-Pay,False
+15,28,Substance Use Disorder,O+,2025-08-15,17705.19,Medicare,True
+16,34,Asthma,B-,2025-04-22,14925.28,Self-Pay,False
+17,75,,O+,2024-05-01,7303.73,BlueCross,False
+18,12,Hypertension,A-,2025-06-09,3141.54,BlueCross,False
+19,77,Diabetes,O+,2026-02-06,7694.22,Medicare,False
+20,71,,A-,2023-09-10,13666.04,Self-Pay,False
+21,83,Depression,A-,2026-02-02,5940.65,BlueCross,False
+22,1,Arthritis,B+,2025-10-07,10202.87,Aetna,False
+23,82,Migraine,B+,2024-09-09,7540.89,BlueCross,True
+24,77,,O-,2024-02-20,487.59,UnitedHealth,False
+25,31,Hypertension,B-,2026-07-18,17572.39,Aetna,True
+26,94,,A-,2024-09-05,19561.89,Self-Pay,True
+27,17,,B+,2023-12-13,5374.63,Self-Pay,False
+28,28,Migraine,AB+,2023-12-18,8039.95,UnitedHealth,False
+29,67,Substance Use Disorder,A-,2026-03-19,5033.32,Aetna,False
+30,3,Migraine,B-,2025-06-25,243.1,Aetna,True
+31,9,Hypertension,AB-,2026-02-03,1510.06,BlueCross,False
+32,86,Substance Use Disorder,B-,2025-11-10,10830.76,Self-Pay,False
+33,32,,O+,2025-04-12,3889.16,Aetna,False
+34,46,Anxiety Disorder,O+,2026-08-04,9393.79,Aetna,True
+35,8,,AB-,2024-10-21,16031.79,Aetna,True
+36,25,Migraine,O-,2025-04-30,2889.63,BlueCross,False
+37,60,Migraine,A-,2026-02-28,8918.3,Self-Pay,True
+38,7,Hypertension,A-,2025-07-11,18534.7,BlueCross,True
+39,53,Substance Use Disorder,O-,2026-04-04,4353.57,Medicare,True
+40,22,,A+,2025-05-27,19707.65,UnitedHealth,False
+41,37,Anxiety Disorder,O-,2025-10-14,3180.46,UnitedHealth,True
+42,8,Hypertension,AB-,2023-10-23,1237.59,Self-Pay,False
+43,65,Asthma,A+,2024-05-09,19219.5,Aetna,True
+44,9,Diabetes,B-,2024-07-16,8135.13,Self-Pay,True
+45,75,Hypertension,A-,2023-11-29,8442.58,Self-Pay,False
+46,34,Migraine,AB-,2024-05-15,4849.85,Medicare,True
+47,86,Arthritis,O-,2023-12-22,6391.93,Aetna,True
+48,59,Diabetes,A-,2024-07-03,10798.92,Self-Pay,False
+49,17,Depression,A-,2025-07-30,17597.48,UnitedHealth,False
+50,21,,AB+,2024-10-06,12272.39,Self-Pay,True
+51,86,Arthritis,A-,2024-10-12,18784.71,BlueCross,False
+52,15,Diabetes,B+,2024-04-19,5519.73,Self-Pay,True
+53,92,,B-,2024-06-21,13781.19,UnitedHealth,False
+54,33,Hypertension,A-,2026-06-25,12722.26,UnitedHealth,True
+55,1,Depression,B+,2025-08-13,12778.56,UnitedHealth,True
+56,95,Substance Use Disorder,O+,2025-07-01,11262.05,Aetna,True
+57,89,Asthma,A+,2024-03-08,16708.44,Self-Pay,True
+58,56,Asthma,A+,2025-11-10,6234.34,Aetna,False
+59,27,Migraine,A-,2024-02-29,7138.2,Self-Pay,False
+60,80,Asthma,B-,2024-10-22,17305.65,BlueCross,False
+61,4,Asthma,AB-,2026-08-22,15669.49,Medicare,True
+62,35,Asthma,A-,2025-08-04,7712.58,Aetna,False
+63,29,Migraine,O-,2025-05-05,7058.2,BlueCross,True
+64,4,Migraine,O+,2025-09-22,6632.41,Aetna,False
+65,45,Anxiety Disorder,AB-,2026-03-14,18790.82,Aetna,False
+66,23,Arthritis,A+,2025-12-31,2257.21,Medicare,False
+67,94,,O+,2024-05-11,12163.56,Self-Pay,True
+68,50,Migraine,AB+,2023-10-08,983.29,Medicare,True
+69,67,Migraine,AB-,2024-08-13,8682.82,UnitedHealth,False
+70,85,Diabetes,AB+,2024-06-22,10191.74,Medicare,False
+71,52,Arthritis,B+,2024-04-21,3917.62,Medicare,True
+72,79,Arthritis,O+,2026-07-02,11003.95,Aetna,False
+73,37,Migraine,O+,2026-04-20,15736.6,Self-Pay,False
+74,60,,O-,2024-08-12,13544.98,Self-Pay,False
+75,95,Asthma,A-,2025-08-21,5747.35,Self-Pay,False
+76,12,Migraine,AB+,2024-11-09,4570.35,BlueCross,True
+77,4,Hypertension,B-,2026-06-01,19680.33,Self-Pay,True
+78,59,,B-,2025-01-17,14395.08,Medicare,False
+79,52,Migraine,B+,2024-06-19,13155.55,Aetna,True
+80,55,Migraine,B+,2024-05-30,16101.79,Self-Pay,False
+81,7,Migraine,A-,2025-05-10,9183.59,Medicare,False
+82,57,,O-,2024-06-16,17954.44,Medicare,False
+83,34,Migraine,AB+,2025-06-04,15339.69,Self-Pay,False
+84,81,Migraine,AB+,2026-05-14,8853.46,UnitedHealth,True
+85,35,,AB-,2024-11-13,17871.23,Aetna,True
+86,20,Migraine,O+,2024-04-30,13909.6,BlueCross,True
+87,54,Anxiety Disorder,AB-,2026-08-31,10897.96,Medicare,True
+88,27,,O+,2025-03-14,18106.29,Self-Pay,True
+89,74,,O-,2023-12-11,217.33,UnitedHealth,False
+90,50,,B-,2023-10-24,9815.77,UnitedHealth,False
+91,63,Hypertension,O+,2024-01-01,6788.98,Medicare,True
+92,60,Asthma,A+,2025-07-21,18147.88,Self-Pay,True
+93,11,Anxiety Disorder,B+,2026-01-18,17350.34,BlueCross,True
+94,34,,AB-,2024-12-08,4312.04,UnitedHealth,False
+95,49,Arthritis,O+,2023-11-11,5120.2,Aetna,False
+96,3,Hypertension,AB-,2024-10-25,4562.02,Aetna,True
+97,4,Migraine,B-,2026-08-29,16800.65,Self-Pay,True
+98,31,Asthma,O-,2025-04-04,13422.23,Self-Pay,True
+99,60,Arthritis,AB-,2026-08-02,3439.0,Self-Pay,True
+100,21,Arthritis,A-,2026-04-03,11615.83,UnitedHealth,False
+101,51,,A-,2023-09-15,11882.75,BlueCross,True
+102,90,Arthritis,A-,2025-10-31,15944.92,Self-Pay,True
+103,45,Anxiety Disorder,AB-,2025-09-19,1472.24,UnitedHealth,True
+104,54,,A-,2025-04-13,8727.12,UnitedHealth,False
+105,91,Asthma,O+,2024-06-21,3605.13,Self-Pay,False
+106,79,Substance Use Disorder,O-,2025-08-05,8767.93,Self-Pay,False
+107,42,Migraine,A-,2024-01-03,5650.67,Medicare,True
+108,60,,AB-,2024-12-22,671.13,UnitedHealth,True
+109,63,Migraine,AB-,2025-01-12,15976.86,UnitedHealth,False
+110,77,Arthritis,A+,2026-07-14,10380.88,BlueCross,True
+111,31,Anxiety Disorder,O-,2026-04-19,11148.01,BlueCross,False
+112,83,,O-,2024-06-17,15879.36,Aetna,False
+113,29,,B-,2025-03-04,6193.5,Self-Pay,False
+114,61,,O+,2024-03-16,19932.97,Self-Pay,False
+115,46,Substance Use Disorder,AB+,2026-05-30,6201.8,BlueCross,True
+116,93,Migraine,AB-,2026-04-14,2479.14,Self-Pay,True
+117,25,Migraine,O-,2024-07-26,5602.34,Self-Pay,False
+118,13,Migraine,AB+,2025-08-03,4626.91,BlueCross,False
+119,2,Asthma,AB+,2025-07-01,1005.76,Aetna,False
+120,90,Asthma,O-,2024-02-17,2141.49,Aetna,False
+121,61,Substance Use Disorder,O-,2025-12-16,6880.05,Aetna,False
+122,62,Diabetes,A-,2025-04-16,8074.08,Aetna,True
+123,20,Asthma,AB+,2026-01-03,1795.1,BlueCross,True
+124,72,,B-,2025-04-06,15536.3,Medicare,False
+125,57,,O+,2023-09-03,6177.07,Self-Pay,True
+126,79,Diabetes,B-,2024-08-23,12547.75,UnitedHealth,True
+127,21,,B+,2023-09-24,11084.65,BlueCross,True
+128,53,Substance Use Disorder,O-,2026-06-17,5896.06,BlueCross,False
+129,91,Arthritis,O-,2026-04-23,1516.48,BlueCross,False
+130,81,Migraine,O+,2026-03-02,2384.05,BlueCross,True
+131,35,Asthma,A-,2024-08-05,1286.8,UnitedHealth,False
+132,57,Diabetes,O-,2023-11-05,13804.69,Medicare,False
+133,65,Substance Use Disorder,O-,2026-04-22,1700.79,Aetna,False
+134,95,Depression,AB+,2026-07-06,614.71,BlueCross,True
+135,87,Arthritis,A+,2023-12-05,15285.87,BlueCross,False
+136,67,,AB+,2025-02-16,3711.63,Self-Pay,False
+137,82,,A-,2023-11-17,9453.21,Medicare,False
+138,42,Diabetes,B+,2025-12-14,6663.09,Medicare,False
+139,85,Anxiety Disorder,A+,2025-12-20,9151.04,UnitedHealth,False
+140,42,Diabetes,O+,2024-01-21,17311.72,Aetna,False
+141,53,Hypertension,B-,2025-02-04,10416.94,Self-Pay,False
+142,81,,A+,2025-04-27,4150.81,Self-Pay,True
+143,37,,O-,2024-06-19,2516.38,Self-Pay,True
+144,91,Asthma,AB+,2026-04-16,11061.7,Self-Pay,False
+145,12,Migraine,A-,2024-12-09,9282.81,Aetna,True
+146,64,Arthritis,AB+,2024-04-22,8368.26,Medicare,False
+147,32,,B+,2025-04-16,7733.36,Self-Pay,True
+148,9,Arthritis,O+,2025-11-11,6863.52,Self-Pay,False
+149,1,Arthritis,AB+,2024-04-10,16765.77,Self-Pay,False
+150,20,,O-,2024-08-09,6967.97,Self-Pay,False
+151,59,Depression,B-,2026-08-28,19617.42,BlueCross,False
+152,30,Anxiety Disorder,A+,2025-08-15,6431.71,Medicare,False
+153,50,Asthma,O-,2024-12-26,19300.01,BlueCross,False
+154,13,,A-,2025-03-23,10566.43,Medicare,True
+155,93,Asthma,O+,2024-01-13,17431.57,BlueCross,True
+156,61,Arthritis,AB-,2024-05-06,12502.86,Medicare,True
+157,43,,AB-,2024-09-07,12573.3,Medicare,True
+158,80,Diabetes,B-,2025-06-08,12660.1,UnitedHealth,True
+159,12,,A-,2024-05-12,15231.36,Aetna,False
+160,22,Arthritis,A+,2024-05-01,1015.22,Aetna,False
+161,46,,O+,2023-11-19,2996.84,Self-Pay,False
+162,73,Asthma,B+,2025-07-25,3583.88,Self-Pay,False
+163,80,Migraine,O-,2024-05-10,18265.3,BlueCross,True
+164,60,Arthritis,O-,2026-05-22,5181.0,Aetna,False
+165,37,Asthma,A-,2026-04-02,8890.42,UnitedHealth,False
+166,82,,AB+,2023-11-19,9191.03,UnitedHealth,True
+167,50,,A-,2024-05-20,4820.39,Self-Pay,False
+168,74,Arthritis,AB+,2025-09-05,536.6,Medicare,False
+169,2,Hypertension,O-,2024-04-24,16673.49,UnitedHealth,True
+170,78,,B-,2024-01-26,12768.7,Self-Pay,False
+171,87,Asthma,A-,2026-06-24,18077.73,Aetna,False
+172,57,Hypertension,AB-,2025-05-20,14673.96,Aetna,False
+173,42,,B+,2025-02-02,4095.82,Self-Pay,False
+174,68,Arthritis,B+,2026-01-09,5213.7,Medicare,False
+175,44,Diabetes,O-,2026-02-04,19261.58,BlueCross,True
+176,87,,AB-,2024-03-29,1897.03,Medicare,True
+177,34,Diabetes,O-,2023-12-18,7434.85,UnitedHealth,False
+178,82,,A-,2024-12-18,13529.25,Medicare,True
+179,80,,B-,2024-12-10,12988.28,Medicare,False
+180,84,,A-,2025-01-26,2881.56,Aetna,False
+181,64,Diabetes,A-,2025-11-10,4772.52,Self-Pay,True
+182,50,Substance Use Disorder,AB-,2025-09-10,13442.68,Self-Pay,False
+183,76,Asthma,O+,2026-08-16,13132.95,Medicare,False
+184,36,Hypertension,AB-,2023-12-19,4423.67,Medicare,True
+185,47,Diabetes,AB-,2024-11-17,10934.87,UnitedHealth,True
+186,51,Arthritis,B-,2024-09-08,19367.32,Medicare,True
+187,85,Migraine,A+,2026-04-04,1106.51,UnitedHealth,True
+188,17,Migraine,A-,2024-06-01,16613.37,Self-Pay,True
+189,76,Migraine,B-,2024-03-29,6638.34,BlueCross,True
+190,36,Asthma,B+,2025-01-06,10850.29,BlueCross,True
+191,85,Hypertension,B+,2024-12-08,395.72,BlueCross,False
+192,3,Asthma,AB+,2024-07-04,1142.74,Medicare,True
+193,9,,O-,2024-06-02,15582.54,Self-Pay,True
+194,58,Migraine,A+,2026-06-10,14572.14,Self-Pay,False
+195,59,Hypertension,A+,2024-12-31,19971.88,Medicare,False
+196,88,Diabetes,O-,2026-04-04,14276.79,Medicare,True
+197,11,,B+,2025-04-28,1407.08,UnitedHealth,False
+198,49,Arthritis,O-,2023-10-28,10160.47,Medicare,True
+199,90,Diabetes,B-,2026-09-02,8658.39,BlueCross,False
+200,44,Substance Use Disorder,O+,2026-03-07,8378.19,Aetna,False
+201,55,Depression,AB+,2026-07-31,7548.59,BlueCross,False
+202,9,Diabetes,A-,2026-06-14,1955.28,Aetna,False
+203,17,Hypertension,AB-,2026-03-21,13433.26,Medicare,False
+204,86,,A+,2024-03-03,19371.13,Self-Pay,False
+205,46,Diabetes,B-,2025-02-16,3179.13,Medicare,True
+206,14,,AB-,2024-04-24,2386.22,UnitedHealth,True
+207,55,Hypertension,AB+,2024-11-15,676.17,UnitedHealth,False
+208,44,,A+,2023-11-06,3709.97,BlueCross,False
+209,9,Asthma,A+,2024-10-22,1925.98,Self-Pay,True
+210,49,Anxiety Disorder,O-,2026-08-17,6883.83,UnitedHealth,False
+211,93,,A-,2024-06-19,17678.51,BlueCross,True
+212,80,Hypertension,A-,2026-01-09,5514.85,Medicare,False
+213,78,,O+,2025-01-13,5536.02,Self-Pay,True
+214,45,,A-,2024-12-09,5736.6,Self-Pay,False
+215,68,Arthritis,A+,2026-07-18,4488.32,Self-Pay,True
+216,1,Migraine,AB+,2026-08-28,18911.95,BlueCross,False
+217,38,,A-,2025-05-04,253.83,Medicare,True
+218,17,Anxiety Disorder,B-,2025-10-29,10055.22,UnitedHealth,True
+219,51,Hypertension,O+,2024-02-19,472.96,Aetna,False
+220,74,,O+,2024-07-24,14219.03,Medicare,False
+221,15,Anxiety Disorder,A+,2026-07-30,19327.37,BlueCross,False
+222,89,,A-,2025-05-29,8790.56,Aetna,True
+223,56,,A-,2025-04-19,7975.76,UnitedHealth,False
+224,29,Depression,B+,2025-11-30,1619.95,Aetna,True
+225,45,,B+,2023-11-04,4801.75,BlueCross,False
+226,26,Asthma,B+,2025-06-04,15228.28,Aetna,True
+227,81,,O-,2025-03-07,15113.47,Self-Pay,False
+228,88,Depression,AB-,2026-03-25,3104.05,Aetna,False
+229,57,Arthritis,AB+,2024-02-22,11869.25,UnitedHealth,True
+230,40,Substance Use Disorder,O-,2026-07-22,848.38,UnitedHealth,False
+231,10,Diabetes,O+,2023-11-29,9307.96,Self-Pay,True
+232,58,Migraine,AB-,2024-03-24,12139.62,Self-Pay,True
+233,8,,A-,2025-06-16,16238.24,UnitedHealth,True
+234,65,Asthma,A+,2025-09-12,5030.1,Medicare,False
+235,68,Asthma,AB-,2024-05-17,7519.75,UnitedHealth,False
+236,53,,A+,2024-01-12,15805.62,UnitedHealth,True
+237,43,Diabetes,O+,2026-05-05,5754.52,Self-Pay,True
+238,43,Diabetes,B+,2024-05-29,18343.25,UnitedHealth,False
+239,17,Diabetes,AB+,2025-06-15,11222.55,UnitedHealth,True
+240,86,Diabetes,O+,2025-07-12,10218.92,Aetna,False
+241,40,Asthma,B-,2024-12-05,6900.47,Medicare,True
+242,29,Asthma,B+,2025-06-03,1635.59,Aetna,True
+243,85,,B+,2025-03-28,11985.2,BlueCross,True
+244,24,Asthma,O-,2026-06-23,969.48,UnitedHealth,True
+245,57,Arthritis,O-,2024-04-13,4756.66,BlueCross,False
+246,61,Migraine,AB-,2025-10-26,13598.31,Self-Pay,False
+247,60,Arthritis,O+,2024-05-21,10107.84,Medicare,True
+248,26,Asthma,AB+,2024-11-09,1138.38,Medicare,False
+249,71,Diabetes,A-,2025-09-08,5772.75,BlueCross,False
+250,58,Asthma,O+,2024-07-27,1925.1,BlueCross,False
+251,45,Hypertension,O+,2024-08-14,1159.81,Self-Pay,False
+252,31,Anxiety Disorder,A-,2025-12-05,7560.76,Aetna,False
+253,13,,B+,2023-11-21,2838.23,UnitedHealth,False
+254,90,Asthma,O-,2025-01-17,9027.17,Aetna,True
+255,3,Arthritis,B-,2026-09-01,16715.77,Self-Pay,False
+256,15,Arthritis,B-,2026-08-29,6092.91,Aetna,True
+257,54,,A-,2023-11-22,2306.07,Medicare,True
+258,81,Migraine,B+,2024-04-23,5896.31,Aetna,False
+259,31,,B+,2024-06-19,13320.99,Aetna,False
+260,9,Hypertension,O+,2026-06-21,17479.3,Aetna,False
+261,48,Arthritis,A+,2026-04-25,7206.17,Aetna,False
+262,31,Diabetes,AB-,2026-04-23,2754.85,UnitedHealth,False
+263,83,Asthma,O-,2024-10-12,19618.3,Medicare,True
+264,18,Diabetes,O-,2024-02-22,835.98,BlueCross,True
+265,26,Hypertension,AB-,2026-03-04,18674.08,Self-Pay,False
+266,70,Substance Use Disorder,AB+,2025-10-13,828.75,BlueCross,False
+267,46,Hypertension,AB-,2025-07-04,5537.01,UnitedHealth,False
+268,52,Substance Use Disorder,O+,2026-08-20,6846.83,BlueCross,False
+269,89,Substance Use Disorder,AB-,2025-08-19,18493.78,Self-Pay,False
+270,11,,A-,2023-09-11,8669.08,BlueCross,False
+271,42,Diabetes,A-,2026-02-14,6625.61,UnitedHealth,False
+272,58,,B+,2024-07-27,13826.32,UnitedHealth,False
+273,6,Depression,O+,2025-08-30,5563.65,Aetna,True
+274,86,Anxiety Disorder,AB-,2026-06-28,10310.41,BlueCross,True
+275,19,,A+,2024-01-28,2611.98,BlueCross,False
+276,47,,A+,2024-01-07,12141.39,Medicare,False
+277,48,,A-,2023-12-29,11521.04,Self-Pay,False
+278,51,,AB+,2025-05-01,5067.27,Aetna,True
+279,95,Asthma,O-,2024-06-27,10403.13,Self-Pay,True
+280,34,Arthritis,O-,2025-06-26,4369.95,Self-Pay,False
+281,89,Substance Use Disorder,B-,2025-10-28,2540.48,Aetna,False
+282,23,,A-,2024-04-13,16229.21,UnitedHealth,False
+283,91,Diabetes,AB+,2025-07-29,17837.5,BlueCross,True
+284,47,Migraine,A-,2024-06-18,19704.14,BlueCross,True
+285,64,Hypertension,AB-,2025-02-19,11125.03,UnitedHealth,False
+286,71,Asthma,A-,2026-05-22,1408.39,Medicare,False
+287,68,Anxiety Disorder,O+,2026-03-18,16484.45,Aetna,True
+288,41,Diabetes,O-,2023-12-13,9370.08,Self-Pay,False
+289,17,Asthma,B+,2024-12-10,8709.1,Aetna,True
+290,67,Asthma,AB+,2024-07-02,3376.68,UnitedHealth,True
+291,45,,A-,2023-09-06,5087.05,Self-Pay,False
+292,17,Arthritis,A-,2025-12-26,10101.21,BlueCross,True
+293,22,Depression,A+,2025-08-01,16522.2,Aetna,True
+294,6,Arthritis,B-,2024-06-16,15362.48,Medicare,True
+295,64,Arthritis,AB+,2025-11-23,9710.6,Medicare,False
+296,59,Diabetes,A+,2025-04-29,3245.8,Medicare,False
+297,60,Migraine,AB-,2024-12-14,12172.54,UnitedHealth,False
+298,94,,O+,2023-09-13,2702.25,UnitedHealth,True
+299,41,Migraine,O-,2023-11-24,2538.19,Medicare,True
+300,19,Diabetes,A+,2026-04-27,5875.22,Medicare,False
+301,32,Asthma,AB-,2026-05-20,18681.66,UnitedHealth,True
+302,21,,O-,2025-04-22,10025.32,UnitedHealth,False
+303,3,Diabetes,O+,2026-03-05,10158.34,BlueCross,True
+304,75,,A+,2025-06-02,1105.75,Medicare,False
+305,37,Hypertension,A-,2024-02-12,8675.46,UnitedHealth,False
+306,52,,A+,2024-01-20,8071.57,Self-Pay,True
+307,47,Arthritis,A-,2024-08-05,7788.34,Medicare,False
+308,80,Diabetes,B+,2026-05-15,19504.15,Medicare,False
+309,44,Depression,B+,2026-01-22,4061.25,Self-Pay,False
+310,65,Hypertension,A+,2026-04-03,874.39,UnitedHealth,False
+311,67,Substance Use Disorder,B+,2026-05-15,12164.58,Self-Pay,True
+312,42,,B+,2024-04-20,7919.8,Self-Pay,False
+313,76,,O-,2024-06-02,14203.92,UnitedHealth,False
+314,3,,AB-,2023-12-24,13508.75,Medicare,False
+315,93,Hypertension,O-,2026-01-05,5384.06,Self-Pay,True
+316,93,Hypertension,O-,2026-04-29,3493.19,Self-Pay,False
+317,19,Migraine,A+,2024-11-21,11494.15,Aetna,True
+318,3,Substance Use Disorder,AB-,2025-07-14,8433.73,Medicare,True
+319,53,,A+,2024-02-19,14144.93,Self-Pay,True
+320,72,Depression,O-,2026-06-18,10557.0,UnitedHealth,True
+321,59,Depression,AB-,2026-04-07,13549.78,UnitedHealth,False
+322,25,Migraine,AB+,2026-08-07,11205.92,BlueCross,False
+323,37,Migraine,O-,2026-02-07,6409.11,UnitedHealth,False
+324,37,Diabetes,O+,2026-04-26,17925.63,Medicare,False
+325,19,,A+,2023-09-30,5823.84,Aetna,False
+326,57,Arthritis,O-,2025-11-18,4358.34,Self-Pay,False
+327,72,Arthritis,B+,2024-09-01,2273.61,Self-Pay,True
+328,32,Hypertension,B-,2026-06-19,12795.1,Aetna,True
+329,53,Depression,O-,2026-01-29,2100.84,BlueCross,True
+330,71,Asthma,O+,2026-04-07,13092.57,Medicare,False
+331,84,Migraine,AB+,2026-02-07,6491.24,Aetna,True
+332,84,Migraine,A+,2024-06-21,18273.27,BlueCross,False
+333,23,Hypertension,O+,2026-01-12,15780.42,BlueCross,False
+334,5,Hypertension,AB+,2023-12-30,11402.44,Aetna,False
+335,37,Substance Use Disorder,O-,2026-04-15,17796.27,BlueCross,False
+336,35,Migraine,A-,2026-04-01,6680.61,Medicare,False
+337,92,Asthma,A+,2024-05-03,14758.7,UnitedHealth,True
+338,23,Anxiety Disorder,O+,2026-02-13,10354.09,Aetna,False
+339,86,Diabetes,B+,2025-01-19,19635.54,Medicare,False
+340,32,Hypertension,AB+,2024-08-02,7733.13,Medicare,False
+341,43,Arthritis,A+,2026-01-21,5304.91,UnitedHealth,True
+342,8,Diabetes,O-,2024-05-09,6205.45,Medicare,False
+343,89,,AB+,2023-09-28,7414.12,BlueCross,True
+344,18,,B+,2024-04-01,9154.08,Self-Pay,False
+345,54,,B-,2024-08-27,15261.01,Self-Pay,True
+346,68,Substance Use Disorder,AB-,2026-04-07,1654.24,Self-Pay,True
+347,8,Migraine,B+,2026-07-28,3374.29,Self-Pay,False
+348,15,Migraine,O-,2024-07-04,1909.74,Self-Pay,False
+349,8,Substance Use Disorder,B+,2025-08-06,10313.63,Medicare,True
+350,72,,AB+,2024-11-14,14493.27,Medicare,False
+351,1,Migraine,A-,2026-08-13,1001.27,UnitedHealth,True
+352,70,Hypertension,A-,2025-04-12,19724.13,Medicare,True
+353,37,Anxiety Disorder,B+,2026-06-28,15402.54,Medicare,False
+354,49,,O+,2024-01-07,7575.35,Self-Pay,True
+355,84,Depression,A-,2026-08-01,3651.63,Self-Pay,False
+356,68,Asthma,B-,2024-03-16,16712.95,Aetna,False
+357,60,Anxiety Disorder,O+,2026-07-23,16484.87,BlueCross,False
+358,45,Asthma,AB+,2024-06-19,3850.76,Aetna,True
+359,85,,A+,2023-12-30,4889.26,Aetna,True
+360,77,Hypertension,O-,2024-12-22,11995.92,Aetna,True
+361,95,Hypertension,O+,2025-11-09,8835.36,Self-Pay,True
+362,8,Asthma,AB+,2024-08-11,4759.81,Self-Pay,False
+363,74,Depression,B-,2025-06-28,6105.11,BlueCross,True
+364,53,Arthritis,AB+,2025-03-16,1313.06,Self-Pay,True
+365,81,,O-,2024-10-29,1032.99,UnitedHealth,False
+366,68,,O+,2025-05-26,8224.36,UnitedHealth,False
+367,24,,B-,2024-06-08,17001.88,UnitedHealth,True
+368,60,Hypertension,O+,2025-10-18,19358.95,Self-Pay,True
+369,50,,AB+,2023-09-04,4146.4,Aetna,False
+370,48,Diabetes,B-,2026-06-13,1125.58,Medicare,True
+371,10,Migraine,B-,2025-04-15,9639.94,UnitedHealth,False
+372,2,Migraine,B-,2025-10-30,19245.34,Aetna,False
+373,32,Migraine,O+,2025-11-24,18311.02,Self-Pay,False
+374,37,Anxiety Disorder,O-,2025-09-07,10719.64,UnitedHealth,False
+375,34,,O-,2024-10-06,9373.48,Medicare,False
+376,27,,AB-,2023-11-18,8337.21,Self-Pay,True
+377,95,Asthma,A+,2025-08-31,5289.4,Self-Pay,False
+378,38,Asthma,B-,2024-08-29,6664.32,Medicare,True
+379,64,,AB+,2024-08-12,15290.88,Medicare,False
+380,59,Asthma,AB-,2026-03-20,3468.39,Self-Pay,False
+381,24,Hypertension,A+,2025-10-30,16797.46,Aetna,True
+382,1,,B+,2024-07-28,16866.64,BlueCross,True
+383,91,Asthma,A+,2024-08-06,4452.52,Medicare,False
+384,8,,O-,2024-11-23,413.06,Self-Pay,False
+385,2,Hypertension,AB+,2024-11-17,10761.19,UnitedHealth,True
+386,65,,B+,2024-07-23,2229.63,Aetna,True
+387,31,Migraine,AB+,2024-01-20,16322.77,UnitedHealth,False
+388,11,,O+,2024-12-06,9234.06,BlueCross,True
+389,39,Diabetes,A+,2026-06-29,1960.66,Medicare,False
+390,71,Substance Use Disorder,A+,2025-09-14,12771.29,BlueCross,True
+391,64,Anxiety Disorder,AB-,2026-05-19,11360.55,Aetna,True
+392,30,Migraine,O-,2025-07-08,5494.79,Aetna,False
+393,70,Hypertension,B+,2024-07-28,18582.45,UnitedHealth,True
+394,27,Asthma,O+,2025-04-25,18584.61,UnitedHealth,True
+395,73,,O+,2023-09-03,13573.0,Self-Pay,False
+396,50,Asthma,A-,2024-07-13,10065.78,UnitedHealth,True
+397,13,,B-,2024-12-17,16789.63,UnitedHealth,False
+398,42,Hypertension,AB+,2025-05-30,15692.61,Medicare,False
+399,30,Depression,O+,2025-08-20,8693.77,Self-Pay,False
+400,11,Arthritis,B-,2025-01-24,14290.86,Aetna,False
