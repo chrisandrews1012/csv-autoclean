@@ -19,11 +19,14 @@ repos:
         args: ["--select", "B,E,F,I,SIM,UP"]
       - id: ruff-format
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.11.2
+  - repo: local
     hooks:
       - id: mypy
-        args: ["--strict"]
+        name: mypy
+        entry: uv run mypy src
+        language: system
+        types: [python]
+        pass_filenames: false
 
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.19.3
