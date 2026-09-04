@@ -44,6 +44,9 @@ strict = true
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "--strict-markers --strict-config"
+markers = [
+    "llm: tests that call the live LLM API (deselect with '-m not llm')",
+]
 
 [dependency-groups]
 dev = [
