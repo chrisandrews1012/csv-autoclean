@@ -16,7 +16,7 @@ eval:
 	uv run python -m evals.runner
 
 data:
-	uv run python data/generate_hr.py
-	uv run python data/generate_hr_clean.py
-	uv run python data/generate_ecommerce.py
-	uv run python data/generate_medical.py
+	uv run python -m data.generate_hr
+	uv run python -m data.generate_hr_clean
+	uv run python -m data.generate_ecommerce
+	uv run python -m data.generate_medical
