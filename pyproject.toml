@@ -1,13 +1,27 @@
 [project]
 name = "csv-autoclean"
 version = "0.1.0"
-description = "Add your description here"
+description = "Dataset-agnostic multi-agent pipeline that profiles, validates, and repairs tabular data using PydanticAI and Claude."
 readme = "README.md"
 authors = [
     { name = "chrisandrews1012", email = "171823942+chrisandrews1012@users.noreply.github.com" }
 ]
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "pydantic-ai>=0.0.14",
+    "anthropic>=0.25.0",
+    "pandas>=2.1.4",
+    "numpy>=1.26.2",
+    "faker>=21.0.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+    "python-dateutil>=2.9.0",
+    "scipy>=1.17.1",
+    "fastapi>=0.136.1",
+    "uvicorn[standard]>=0.47.0",
+    "python-multipart>=0.0.28",
+    "markdown>=3.10.2",
+]
 
 [project.scripts]
 csv-autoclean = "csv_autoclean:main"
