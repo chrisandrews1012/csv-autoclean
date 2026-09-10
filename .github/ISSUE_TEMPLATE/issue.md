@@ -6,13 +6,6 @@ labels: []
 assignees: []
 ---
 
-## Type
-- [ ] fix
-- [ ] feature
-- [ ] chore
-- [ ] docs
-- [ ] refactor
-
 ## User outcome
 <!-- Non-technical description of the problem -->
 
