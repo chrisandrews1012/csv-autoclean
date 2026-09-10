@@ -6,6 +6,7 @@ Closes #
 ## Requirements and acceptance criteria
 - Requirement IDs:
 - [ ] Acceptance criterion:
+- [ ] Acceptance criterion:
 
 ## Solution
 <!-- What changed, file by file, and why this approach. -->
