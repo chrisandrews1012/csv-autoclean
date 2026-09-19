@@ -21,7 +21,7 @@ def run_pipeline(input_path: str) -> PipelineContext:
     df = pd.read_csv(input_path)
 
     profile = run_profiler(input_path)
-    validation = run_validator(dataset_name, df, profile)
+    validation = run_validator(profile)
 
     output_path = compute_output_path(input_path)
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
