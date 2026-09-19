@@ -54,8 +54,7 @@ def check_profile_invariants(profile: DataProfile, df: pd.DataFrame) -> list[str
         actual_null_pct = round(float(df[cp.name].isnull().mean() * 100), 2)
         if abs(cp.null_pct - actual_null_pct) > _PCT_TOLERANCE:
             violations.append(
-                f"'{cp.name}': null_pct claimed {cp.null_pct}, "
-                f"actual {actual_null_pct}"
+                f"'{cp.name}': null_pct claimed {cp.null_pct}, actual {actual_null_pct}"
             )
 
         actual_unique = int(df[cp.name].nunique())
