@@ -20,7 +20,7 @@ def run_pipeline(input_path: str) -> PipelineContext:
     dataset_name = Path(input_path).stem
     df = pd.read_csv(input_path)
 
-    profile = run_profiler(dataset_name, df)
+    profile = run_profiler(input_path)
     validation = run_validator(dataset_name, df, profile)
 
     output_path = compute_output_path(input_path)
