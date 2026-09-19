@@ -3,15 +3,12 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from csv_autoclean.agents.repairer import build_repairer_prompt, run_repairer
+from csv_autoclean.agents.repairer import apply_repairs, run_repairer
 from csv_autoclean.models import (
     ColumnMissingness,
     ColumnProfile,
     DataProfile,
     MissingnessReport,
-    ValidationFailure,
-    ValidationReport,
-    ValidationRule,
 )
 
 
@@ -43,93 +40,147 @@ def _profile(
     )
 
 
-def _validation(failures: list[ValidationFailure]) -> ValidationReport:
-    return ValidationReport(
-        passed=len(failures) == 0,
-        rules_applied=[
-            ValidationRule(column="age", rule_description="test rule", severity="info")
-        ],
-        failure_count=len(failures),
-        failures=failures,
-        summary="test validation summary",
-    )
-
-
-def test_build_repairer_prompt_includes_validation_summary() -> None:
-    """The prompt restates the upstream validator's summary."""
-    df = pd.DataFrame({"age": [25.0, 30.0, None]})
-    profile = _profile([_column_profile("age", "age")])
-    validation = _validation([])
-    prompt = build_repairer_prompt("people", df, profile, validation)
-    assert "test validation summary" in prompt
-
-
-def test_build_repairer_prompt_includes_validation_failures() -> None:
-    """A validation failure is listed in the prompt for the agent to act on."""
-    df = pd.DataFrame({"patient_id": ["p1", "p1", "p2"]})
-    profile = _profile([_column_profile("patient_id", "id")])
-    failure = ValidationFailure(
-        column="patient_id",
-        rule="no duplicate ids",
-        severity="critical",
-        affected_rows=1,
-        description="duplicate id found",
-        suggested_fix="drop the duplicate row",
-    )
-    validation = _validation([failure])
-    prompt = build_repairer_prompt("people", df, profile, validation)
-    assert "patient_id" in prompt
-    assert "duplicate id found" in prompt
-
-
-def test_build_repairer_prompt_includes_repair_candidate_evidence() -> None:
-    """Deterministic repair-candidate evidence (mean/median) is included."""
-    df = pd.DataFrame({"age": [10.0, 20.0, None, 30.0]})
-    missingness = MissingnessReport(
+def _missingness(column: str, safe_to_impute: bool) -> MissingnessReport:
+    return MissingnessReport(
         dataset_mcar_conclusion="test",
         columns_analyzed=[
             ColumnMissingness(
-                column="age",
+                column=column,
                 null_count=1,
                 null_pct=25.0,
-                mechanism="MCAR",
+                mechanism="MNAR" if not safe_to_impute else "MCAR",
                 confidence="high",
-                evidence="test evidence",
-                safe_to_impute=True,
+                evidence="test",
+                safe_to_impute=safe_to_impute,
             )
         ],
-        summary="test missingness",
+        summary="test",
     )
-    profile = _profile([_column_profile("age", "age")], missingness)
-    validation = _validation([])
-    prompt = build_repairer_prompt("people", df, profile, validation)
-    assert "Repair candidate evidence" in prompt
-    assert "mean" in prompt
+
+
+def test_apply_repairs_drops_exact_duplicate_rows() -> None:
+    """Exact duplicate rows are dropped before any per-column repairs."""
+    df = pd.DataFrame({"name": ["Al", "Al", "Bo"]})
+    profile = _profile([_column_profile("name", "text")])
+    result_df, actions, rows_dropped, _ = apply_repairs(df, profile)
+    assert len(result_df) == 2
+    assert rows_dropped == 1
+    assert any(a.action_taken == "dropped_rows" for a in actions)
+
+
+def test_apply_repairs_cleans_currency_and_imputes_median() -> None:
+    """Currency symbols are stripped and nulls are median-imputed."""
+    df = pd.DataFrame({"salary": ["$1,000", "$2,000", None]})
+    profile = _profile([_column_profile("salary", "currency")])
+    result_df, actions, _, _ = apply_repairs(df, profile)
+    assert result_df["salary"].isnull().sum() == 0
+    action_types = {a.action_taken for a in actions}
+    assert "reformatted" in action_types
+    assert "imputed_median" in action_types
+
+
+def test_apply_repairs_flags_out_of_range_age_and_imputes_median() -> None:
+    """Ages outside 0-120 are nulled out and then median-imputed."""
+    df = pd.DataFrame({"age": [25, -5, 150, 30]})
+    profile = _profile([_column_profile("age", "age")])
+    result_df, actions, _, _ = apply_repairs(df, profile)
+    assert result_df["age"].isnull().sum() == 0
+    action_types = {a.action_taken for a in actions}
+    assert "flagged" in action_types
+    assert "imputed_median" in action_types
+
+
+def test_apply_repairs_escalates_email_issues_to_unresolved_without_fixing() -> None:
+    """Null and malformed emails are escalated, never auto-repaired."""
+    df = pd.DataFrame({"email": ["a@x.com", None, "not-an-email"]})
+    profile = _profile([_column_profile("email", "email")])
+    result_df, actions, _, unresolved = apply_repairs(df, profile)
+    assert result_df["email"].isnull().sum() == 1
+    assert not any(a.column == "email" for a in actions)
+    assert len(unresolved) == 2
+
+
+def test_apply_repairs_standardizes_non_iso_dates() -> None:
+    """Dates not already in YYYY-MM-DD format are standardized."""
+    df = pd.DataFrame({"signup": ["2024-01-15", "01/20/2024"]})
+    profile = _profile([_column_profile("signup", "date")])
+    result_df, actions, _, _ = apply_repairs(df, profile)
+    assert result_df["signup"].tolist() == ["2024-01-15", "2024-01-20"]
+    assert any(a.action_taken == "reformatted" for a in actions)
+
+
+def test_apply_repairs_title_cases_and_imputes_mode_for_categorical() -> None:
+    """Inconsistent casing is title-cased and nulls are mode-imputed."""
+    df = pd.DataFrame({"dept": ["engineering", "Engineering", "Engineering", None]})
+    profile = _profile([_column_profile("dept", "categorical")])
+    result_df, actions, _, _ = apply_repairs(df, profile)
+    assert result_df["dept"].isnull().sum() == 0
+    assert (result_df["dept"] == "Engineering").all()
+    action_types = {a.action_taken for a in actions}
+    assert "reformatted" in action_types
+    assert "imputed_mode" in action_types
+
+
+def test_apply_repairs_imputes_median_for_numeric_nulls() -> None:
+    """Null values in a plain numeric column are median-imputed."""
+    df = pd.DataFrame({"score": [10, 20, None]})
+    profile = _profile([_column_profile("score", "numeric")])
+    result_df, actions, _, _ = apply_repairs(df, profile)
+    assert result_df["score"].isnull().sum() == 0
+    assert any(a.action_taken == "imputed_median" for a in actions)
+
+
+def test_apply_repairs_escalates_null_ids_without_fixing() -> None:
+    """Null id values are escalated to unresolved, never fabricated."""
+    df = pd.DataFrame({"patient_id": ["p1", None, "p3"]})
+    profile = _profile([_column_profile("patient_id", "id")])
+    result_df, actions, _, unresolved = apply_repairs(df, profile)
+    assert result_df["patient_id"].isnull().sum() == 1
+    assert not any(a.column == "patient_id" for a in actions)
+    assert len(unresolved) == 1
+
+
+def test_apply_repairs_imputes_mode_for_boolean_nulls() -> None:
+    """Null values in a boolean column are mode-imputed."""
+    df = pd.DataFrame({"active": [True, True, False, None]})
+    profile = _profile([_column_profile("active", "boolean")])
+    result_df, actions, _, _ = apply_repairs(df, profile)
+    assert result_df["active"].isnull().sum() == 0
+    assert any(a.action_taken == "imputed_mode" for a in actions)
+
+
+def test_apply_repairs_escalates_sparse_columns_regardless_of_type() -> None:
+    """A column over 50% null is escalated to unresolved untouched."""
+    df = pd.DataFrame({"id": [1, 2, 3, 4], "notes": [None, None, None, "text"]})
+    profile = _profile([_column_profile("id", "id"), _column_profile("notes", "text")])
+    result_df, actions, _, unresolved = apply_repairs(df, profile)
+    assert result_df["notes"].isnull().sum() == 3
+    assert not any(a.column == "notes" for a in actions)
+    assert len(unresolved) == 1
+
+
+def test_apply_repairs_never_touches_unsafe_to_impute_columns() -> None:
+    """A column the Profiler marked unsafe to impute is escalated, not repaired."""
+    df = pd.DataFrame({"diagnosis": ["flu", None, "flu"]})
+    profile = _profile(
+        [_column_profile("diagnosis", "categorical")],
+        missingness=_missingness("diagnosis", safe_to_impute=False),
+    )
+    result_df, actions, _, unresolved = apply_repairs(df, profile)
+    assert result_df["diagnosis"].isnull().sum() == 1
+    assert not any(a.column == "diagnosis" for a in actions)
+    assert len(unresolved) == 1
 
 
 @pytest.mark.llm
-def test_run_repairer_drops_duplicate_rows_and_writes_output(tmp_path: Path) -> None:
-    """Against a dataset with a known duplicate id, the agent decides to
-    drop it, the repaired CSV is written, and rows_dropped reflects the
-    real count, not whatever the agent claims."""
-    df = pd.DataFrame({"patient_id": ["p1", "p1", "p2"], "age": [25.0, 25.0, 30.0]})
-    profile = _profile(
-        [_column_profile("patient_id", "id"), _column_profile("age", "age")]
-    )
-    failure = ValidationFailure(
-        column="patient_id",
-        rule="no duplicate ids",
-        severity="critical",
-        affected_rows=1,
-        description="duplicate id found",
-        suggested_fix="drop the duplicate row",
-    )
-    validation = _validation([failure])
-    output_path = str(tmp_path / "repaired.csv")
+def test_run_repairer_produces_a_valid_repair_report(tmp_path: Path) -> None:
+    """Against a dataset with a known duplicate row, the agent narrates
+    the actual repairs into a schema-valid RepairReport."""
+    input_path = str(tmp_path / "people.csv")
+    output_path = str(tmp_path / "people_clean.csv")
+    df = pd.DataFrame({"name": ["Al", "Al", "Bo"], "age": [25, 25, 30]})
+    df.to_csv(input_path, index=False)
 
-    report = run_repairer("people", df, profile, validation, output_path)
-
+    profile = _profile([_column_profile("name", "text"), _column_profile("age", "age")])
+    report = run_repairer(input_path, output_path, profile)
     assert report.total_repairs == len(report.actions)
-    assert report.rows_dropped == 1
-    repaired = pd.read_csv(output_path)
-    assert len(repaired) == 2

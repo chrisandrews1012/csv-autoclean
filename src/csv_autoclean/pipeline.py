@@ -1,8 +1,6 @@
 import sys
 from pathlib import Path
 
-import pandas as pd
-
 from csv_autoclean.agents.profiler import run_profiler
 from csv_autoclean.agents.repairer import run_repairer
 from csv_autoclean.agents.validator import run_validator
@@ -17,15 +15,12 @@ def compute_output_path(input_path: str) -> str:
 
 
 def run_pipeline(input_path: str) -> PipelineContext:
-    dataset_name = Path(input_path).stem
-    df = pd.read_csv(input_path)
-
     profile = run_profiler(input_path)
     validation = run_validator(profile)
 
     output_path = compute_output_path(input_path)
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
-    repair = run_repairer(dataset_name, df, profile, validation, output_path)
+    repair = run_repairer(input_path, output_path, profile)
 
     return PipelineContext(
         input_path=input_path,
