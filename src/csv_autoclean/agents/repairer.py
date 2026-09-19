@@ -96,8 +96,10 @@ def apply_repairs(
 
         if inferred == "currency":
             bad_mask = df[col].apply(
-                lambda x: isinstance(x, str)
-                and any(c in str(x) for c in ["$", "£", "€", ","])
+                lambda x: (
+                    isinstance(x, str)
+                    and any(c in str(x) for c in ["$", "£", "€", ","])
+                )
             )
             bad_count = int(bad_mask.sum())
             if bad_count > 0:
@@ -300,8 +302,7 @@ def apply_repairs(
                             before_example="NaN",
                             after_example=str(mode_val),
                             reason=(
-                                "Mode imputation assigns the most common "
-                                "boolean value."
+                                "Mode imputation assigns the most common boolean value."
                             ),
                         )
                     )
