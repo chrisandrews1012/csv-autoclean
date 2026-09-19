@@ -1,64 +1,65 @@
-import pandas as pd
 from pydantic_ai import Agent
+from pydantic_ai.models.anthropic import AnthropicModel
 
 from csv_autoclean.models import DataProfile, ValidationReport
-from csv_autoclean.validation_rules import compute_validation_evidence
 
-SYSTEM_PROMPT = """You are the Validator stage of a data quality pipeline.
+SYSTEM_PROMPT = """
+You are a data validation agent. You receive a data profile where each
+column has an inferred semantic type. Your job is to infer appropriate
+validation rules for each column based on its type, then apply them
+and return a ValidationReport.
 
-You are given the upstream Profiler's DataProfile plus a set of
-deterministic rule violations computed directly from the data (exact, not
-estimates). Restate that evidence accurately in your structured output,
-and add the judgment it can't provide on its own:
+Use these rules per semantic type:
 
-- rules_applied: state each concrete rule you checked, including any
-  additional rules you judge relevant given the profile beyond the
-  deterministic evidence, each with a severity level.
-- failures: one ValidationFailure per violation, with column, rule,
-  severity, affected_rows, a plain-English description, and a concrete
-  suggested_fix.
-- Severity guide: "critical" for issues that would corrupt downstream
-  analysis if repaired naively (duplicate ids, unsafe-to-impute nulls,
-  implausible negative values); "consideration" for issues worth a human
-  look but not blocking (malformed but recoverable formatting); "info"
-  for observations that don't need action.
-- passed: true only if there are zero critical failures.
-- summary: 2-3 sentences of plain-English validation assessment.
+  id          - must have zero nulls; uniqueness should be ~100%
+  email       - zero nulls expected; all non-null values must match email format
+  phone       - flag high null rates; check for consistent formatting
+  age         - must be numeric; flag values outside 0-120
+  date        - flag inconsistent formats; all values should be parseable as dates
+  currency    - must be numeric (flag values with currency symbols or commas)
+  categorical - flag high null rates; check for inconsistent casing; note low
+                cardinality
+  numeric     - flag extreme outliers (beyond 3 std devs); flag high null rates
+  boolean     - should only contain 2 distinct values; flag nulls
+  text        - flag very high null rates only
+  unknown     - flag high null rates; no other rules applied
+
+Severity:
+  critical      - data is unusable without fixing this (nulls in ID, wrong dtype)
+  consideration - something worth knowing that may affect analysis, but data is
+                  still usable (inconsistent casing, outliers, high null rates
+                  on non-critical columns)
+  info          - minor observation worth noting (low cardinality, sparse column)
+
+Always check for duplicate rows regardless of column types.
+Set passed=True only if there are zero critical failures.
+Document every rule you applied in rules_applied, even passing ones.
+
+For rules or failures that apply to the dataset as a whole rather than
+a single column (e.g. duplicate rows), always use the column value
+"(all columns)". Never invent other labels like "[dataset]" or "_dataset_".
+
+You will also receive a missingness analysis for each column. Use the
+mechanism field to inform severity:
+  MNAR columns with nulls should always be flagged as critical, since
+  imputation would bias results and manual review is required.
+  MAR and MCAR columns follow the standard severity rules above.
 """
 
-validator_agent = Agent(
-    "anthropic:claude-opus-5",
-    output_type=ValidationReport,
-    system_prompt=SYSTEM_PROMPT,
-    defer_model_check=True,
-)
+validator_agent = Agent(output_type=ValidationReport, system_prompt=SYSTEM_PROMPT)
 
 
-def build_validator_prompt(
-    dataset_name: str, df: pd.DataFrame, profile: DataProfile
-) -> str:
-    evidence = compute_validation_evidence(df, profile)
+def build_validator_prompt(profile: DataProfile) -> str:
+    return f"""
+    Validate this dataset. Infer appropriate rules from the column semantic
+    types and apply them. Return a complete ValidationReport.
 
-    lines = [
-        f"Dataset: {dataset_name}",
-        f"Profile summary: {profile.summary}",
-        "",
-    ]
-    if evidence:
-        lines.append(
-            "Deterministic rule violations (ground truth, restate accurately):"
-        )
-        for line in evidence:
-            lines.append(f"- {line}")
-    else:
-        lines.append("No deterministic rule violations were detected.")
-
-    return "\n".join(lines)
+    Dataset profile:
+    {profile.model_dump_json(indent=2)}
+    """
 
 
-def run_validator(
-    dataset_name: str, df: pd.DataFrame, profile: DataProfile
-) -> ValidationReport:
-    prompt = build_validator_prompt(dataset_name, df, profile)
-    result = validator_agent.run_sync(prompt)
+def run_validator(profile: DataProfile) -> ValidationReport:
+    prompt = build_validator_prompt(profile)
+    result = validator_agent.run_sync(prompt, model=AnthropicModel("claude-sonnet-4-6"))
     return result.output
