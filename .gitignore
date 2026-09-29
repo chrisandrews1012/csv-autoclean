@@ -13,4 +13,6 @@ build/
 .coverage
 htmlcov/
 
+logs/
+
 .DS_Store
