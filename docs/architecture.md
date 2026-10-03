@@ -21,6 +21,10 @@ See [`statistics-and-repairs.md`](statistics-and-repairs.md) for exactly what ea
 
 Pydantic validates that an agent's output has the right shape, not that it's factually correct. After each of the first three stages, a deterministic check re-derives the same facts from the actual data and compares them against the agent's claims: row counts, column references, a `passed=True` next to a critical failure, a `rows_dropped` that doesn't match the real row delta. Any mismatch raises `InvariantViolation` and halts the run immediately, rather than letting a wrong answer reach the next stage.
 
+## Evals: verifying the model's judgment calls are correct
+
+Invariants catch an agent's claims contradicting the data; they don't catch a judgment call that's wrong but internally consistent, like a currency column confidently inferred as categorical. A separate eval harness runs the pipeline against datasets whose correct answers are already known and scores the result against them. See [`evals.md`](evals.md) for what a golden dataset is and why this layer matters.
+
 ## One pipeline, two front ends
 
 The CLI and the web server both call the same `run_pipeline` function. The CLI runs it synchronously with a console UI and logs to `logs/pipeline.log`. The web server schedules it on a background thread per upload and streams the same progress over server-sent events. The orchestration logic lives in exactly one place, so the two front ends can't drift into behaving differently.
