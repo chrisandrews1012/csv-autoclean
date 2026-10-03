@@ -1,14 +1,34 @@
 # csv-autoclean
 
-Upload a CSV and get back a cleaned version, a full quality report, and
-a list of every issue found and fixed. Four agents, each with a single
-responsibility, pass a typed result to the next: nothing is hardcoded to
-a particular dataset or schema.
+A four-agent LLM pipeline that cleans CSV files, built to demonstrate how
+to make a pipeline built on a non-deterministic model actually
+trustworthy. Every agent's output is checked by three independent layers
+before it's acted on, not just prompted and trusted. Upload a CSV and get
+back a cleaned version, a full quality report, and a list of every issue
+found and fixed.
 
-See [`docs/architecture.md`](docs/architecture.md) for the design
-reasoning behind the four-agent split, and
-[`docs/statistics-and-repairs.md`](docs/statistics-and-repairs.md) for
-exactly what each statistical check and repair does.
+## Why this exists
+
+Any pipeline that puts an LLM between raw input and an automated action
+faces the same problem: the model can be wrong, and a wrong answer that
+looks confident is more dangerous than a tool that fails loudly. This
+project treats that as the core design problem, not an afterthought:
+
+- **Typed contracts** (Pydantic) enforce that every agent's output is
+  structurally valid before the next stage ever sees it.
+- **Invariants** deterministically re-derive facts from the actual data
+  and halt the pipeline the moment an agent's claim contradicts reality.
+- **Evals** run the pipeline against datasets with known-correct answers
+  and score whether its judgment calls, not just its facts, are actually
+  right.
+
+CSV cleaning is the example task; the governance around it is the point.
+See [`docs/architecture.md`](docs/architecture.md) for why the pipeline
+is split into four single-responsibility agents and how the trust layers
+fit together, [`docs/statistics-and-repairs.md`](docs/statistics-and-repairs.md)
+for exactly what each statistical check and repair does, and
+[`docs/evals.md`](docs/evals.md) for what a golden dataset is and why it's
+the layer that catches a wrong judgment call, not just a wrong fact.
 
 ## How it works
 
@@ -82,19 +102,27 @@ Open [http://localhost:8000](http://localhost:8000). Upload a CSV and
 the pipeline runs in the browser with live progress, an inline report,
 and a download link for the cleaned file.
 
-## Testing
+## Testing and evals
 
 ```bash
 make test-fast   # deterministic tests, no API key required
 make test-llm    # LLM integration tests, requires ANTHROPIC_API_KEY
+make eval        # golden-dataset evals, requires ANTHROPIC_API_KEY
 ```
 
-The fast suite (85 tests as of this writing) needs no API key and covers
-the deterministic logic in every stage: statistics, format validators,
-cleaners, missingness detection, invariant checks, and repair execution.
-The 6 LLM tests are marked `pytest.mark.llm` and excluded from
-`make test-fast`; they call the live API and verify end-to-end agent
-behavior.
+The fast suite (102 tests as of this writing) needs no API key and
+covers the deterministic logic in every stage: statistics, format
+validators, cleaners, missingness detection, invariant checks, and
+repair execution. The 6 LLM tests are marked `pytest.mark.llm` and
+excluded from `make test-fast`; they call the live API and verify
+end-to-end agent behavior.
+
+`make eval` is a different kind of check: it runs the pipeline against
+the four golden datasets and scores whether its semantic-type calls,
+repair decisions, and MNAR-safety behavior are actually correct, not
+just well-formed. See [`docs/evals.md`](docs/evals.md) for what that
+means and why it matters. Results are written to
+`evals/results/scorecard.md`.
 
 ## File structure
 
@@ -109,6 +137,17 @@ csv-autoclean/
 │       ├── hr_clean.csv
 │       ├── ecommerce_messy.csv
 │       └── medical_messy.csv
+├── docs/
+│   ├── architecture.md
+│   ├── statistics-and-repairs.md
+│   └── evals.md
+├── evals/
+│   ├── expected/
+│   │   ├── hr_expected.json
+│   │   ├── hr_clean_expected.json
+│   │   ├── ecommerce_expected.json
+│   │   └── medical_expected.json
+│   └── runner.py
 ├── src/
 │   └── csv_autoclean/
 │       ├── agents/
