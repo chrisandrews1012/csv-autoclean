@@ -61,5 +61,7 @@ def build_validator_prompt(profile: DataProfile) -> str:
 
 def run_validator(profile: DataProfile) -> ValidationReport:
     prompt = build_validator_prompt(profile)
-    result = validator_agent.run_sync(prompt, model=AnthropicModel("claude-sonnet-4-6"))
+    result = validator_agent.run_sync(
+        prompt, model=AnthropicModel("claude-haiku-4-5-20251001")
+    )
     return result.output

@@ -333,5 +333,7 @@ def run_repairer(
     Produce a complete RepairReport documenting these repairs.
     """
 
-    result = repairer_agent.run_sync(prompt, model=AnthropicModel("claude-sonnet-4-6"))
+    result = repairer_agent.run_sync(
+        prompt, model=AnthropicModel("claude-haiku-4-5-20251001")
+    )
     return result.output
