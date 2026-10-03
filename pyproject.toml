@@ -1,0 +1,62 @@
+[project]
+name = "csv-autoclean"
+version = "0.1.0"
+description = "Dataset-agnostic multi-agent pipeline that profiles, validates, and repairs tabular data using PydanticAI and Claude."
+readme = "README.md"
+authors = [
+    { name = "chrisandrews1012", email = "171823942+chrisandrews1012@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic-ai>=0.0.14",
+    "anthropic>=0.25.0",
+    "pandas>=2.1.4",
+    "numpy>=1.26.2",
+    "faker>=21.0.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+    "python-dateutil>=2.9.0",
+    "scipy>=1.17.1",
+    "fastapi>=0.136.1",
+    "uvicorn[standard]>=0.47.0",
+    "python-multipart>=0.0.28",
+    "markdown>=3.10.2",
+]
+
+[project.scripts]
+csv-autoclean = "csv_autoclean:main"
+
+[build-system]
+requires = ["uv_build>=0.11.8,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "SIM", "UP"]
+
+[tool.mypy]
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "--strict-markers --strict-config"
+markers = [
+    "llm: tests that call the live LLM API (deselect with '-m not llm')",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.3.1",
+    "pandas-stubs>=3.0.5.260730",
+    "pre-commit>=4.6.2",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.6",
+    "scipy-stubs>=1.17.1.5",
+    "types-markdown>=3.10.2.20260712",
+    "types-python-dateutil>=2.9.0.20260807",
+]
