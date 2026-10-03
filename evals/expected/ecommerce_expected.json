@@ -1,0 +1,27 @@
+{
+  "dataset_path": "data/raw/ecommerce_messy.csv",
+  "description": "Order records with a different column schema than HR. Tests that the pipeline generalizes beyond a single domain.",
+  "known_facts": {
+    "row_count": 413,
+    "duplicate_row_count": 13,
+    "total_null_count": 35
+  },
+  "expected_column_types": {
+    "order_id": "id",
+    "customer_name": "text",
+    "product_category": "categorical",
+    "quantity": "numeric",
+    "unit_price": "currency",
+    "order_date": "date",
+    "shipping_country": "categorical",
+    "order_status": "categorical"
+  },
+  "must_repair": {
+    "duplicate_rows": true,
+    "columns": {
+      "unit_price": ["currency_symbols"],
+      "quantity": ["null_values"],
+      "shipping_country": ["mixed_case"]
+    }
+  }
+}

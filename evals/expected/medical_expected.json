@@ -1,0 +1,22 @@
+{
+  "dataset_path": "data/raw/medical_messy.csv",
+  "description": "Patient records with MNAR missingness in diagnosis (sensitive diagnoses are under-recorded). The pipeline must detect it and refuse to impute.",
+  "known_facts": {
+    "row_count": 400,
+    "duplicate_row_count": 0,
+    "total_null_count": 107
+  },
+  "expected_column_types": {
+    "patient_id": "id",
+    "age": "age",
+    "diagnosis": "categorical",
+    "blood_type": "categorical",
+    "admission_date": "date",
+    "treatment_cost": "currency",
+    "insurance_provider": "categorical",
+    "follow_up_required": "boolean"
+  },
+  "must_repair": {},
+  "must_flag_unresolved": ["diagnosis"],
+  "must_not_impute_mnar": true
+}

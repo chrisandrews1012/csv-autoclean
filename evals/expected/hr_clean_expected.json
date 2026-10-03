@@ -1,0 +1,22 @@
+{
+  "dataset_path": "data/raw/hr_clean.csv",
+  "description": "Same HR schema as hr_messy with zero injected issues. The pipeline must produce zero repairs.",
+  "known_facts": {
+    "row_count": 500,
+    "duplicate_row_count": 0,
+    "total_null_count": 0
+  },
+  "expected_column_types": {
+    "employee_id": "id",
+    "name": "text",
+    "age": "age",
+    "department": "categorical",
+    "gender": "categorical",
+    "hire_date": "date",
+    "salary": "currency",
+    "email": "email",
+    "performance_rating": "numeric"
+  },
+  "must_repair": {},
+  "expect_zero_repairs": true
+}
