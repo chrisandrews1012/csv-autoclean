@@ -94,7 +94,9 @@ def run_reporter(
     output_path: str = "docs/data_quality_report.md",
 ) -> str:
     prompt = build_reporter_prompt(context)
-    result = reporter_agent.run_sync(prompt, model=AnthropicModel("claude-sonnet-4-6"))
+    result = reporter_agent.run_sync(
+        prompt, model=AnthropicModel("claude-haiku-4-5-20251001")
+    )
     report_md = result.output
 
     parent = os.path.dirname(output_path)

@@ -83,7 +83,9 @@ def run_profiler(csv_path: str) -> DataProfile:
     df = load_dataframe(csv_path)
     prompt = build_profiler_prompt(csv_path, df)
 
-    result = profiler_agent.run_sync(prompt, model=AnthropicModel("claude-sonnet-4-6"))
+    result = profiler_agent.run_sync(
+        prompt, model=AnthropicModel("claude-haiku-4-5-20251001")
+    )
     profile = result.output
     profile.missingness = build_missingness_report(df)
 
