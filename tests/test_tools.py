@@ -16,6 +16,7 @@ from csv_autoclean.tools import (
     is_valid_date,
     is_valid_email,
     load_dataframe,
+    normalize_case_inconsistency,
     save_dataframe,
     standardize_case,
     standardize_date,
@@ -126,10 +127,26 @@ def test_count_non_standard_dates_counts_non_iso_values() -> None:
     assert count_non_standard_dates(series) == 1
 
 
-def test_detect_case_inconsistency_counts_non_title_case_values() -> None:
-    """Values that differ from their title-cased form are counted."""
+def test_detect_case_inconsistency_counts_minority_casing_variants() -> None:
+    """A value spelled differently than the majority casing for its
+    category is counted."""
     series = pd.Series(["Engineering", "engineering", "Sales"])
     assert detect_case_inconsistency(series) == 1
+
+
+def test_detect_case_inconsistency_ignores_consistent_abbreviations() -> None:
+    """A value like 'HR' used consistently isn't flagged just because it
+    differs from its own Python .title()-cased form ('Hr')."""
+    series = pd.Series(["HR", "HR", "Sales", "Sales"])
+    assert detect_case_inconsistency(series) == 0
+
+
+def test_normalize_case_inconsistency_fixes_minority_casing_only() -> None:
+    """Minority-cased values are normalized to the majority casing within
+    their category; a consistently-used abbreviation is left untouched."""
+    series = pd.Series(["HR", "Engineering", "engineering", "Engineering"])
+    result = normalize_case_inconsistency(series)
+    assert list(result) == ["HR", "Engineering", "Engineering", "Engineering"]
 
 
 def test_analyze_missingness_detects_mar_correlation_with_numeric_column() -> None:
