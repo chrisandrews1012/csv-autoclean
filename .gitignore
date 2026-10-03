@@ -14,5 +14,6 @@ build/
 htmlcov/
 
 logs/
+evals/results/
 
 .DS_Store

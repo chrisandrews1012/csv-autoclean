@@ -109,16 +109,36 @@ def test_apply_repairs_standardizes_non_iso_dates() -> None:
     assert any(a.action_taken == "reformatted" for a in actions)
 
 
-def test_apply_repairs_title_cases_and_imputes_mode_for_categorical() -> None:
-    """Inconsistent casing is title-cased and nulls are mode-imputed."""
-    df = pd.DataFrame({"dept": ["engineering", "Engineering", "Engineering", None]})
-    profile = _profile([_column_profile("dept", "categorical")])
+def test_apply_repairs_normalizes_casing_and_imputes_mode_for_categorical() -> None:
+    """Minority-cased values are normalized to the majority casing, and
+    nulls are mode-imputed."""
+    df = pd.DataFrame(
+        {
+            "id": [1, 2, 3, 4],
+            "dept": ["engineering", "Engineering", "Engineering", None],
+        }
+    )
+    profile = _profile(
+        [_column_profile("id", "id"), _column_profile("dept", "categorical")]
+    )
     result_df, actions, _, _ = apply_repairs(df, profile)
     assert result_df["dept"].isnull().sum() == 0
     assert (result_df["dept"] == "Engineering").all()
     action_types = {a.action_taken for a in actions}
     assert "reformatted" in action_types
     assert "imputed_mode" in action_types
+
+
+def test_apply_repairs_leaves_consistent_abbreviations_untouched() -> None:
+    """A consistently-used abbreviation like 'HR' is not mistaken for
+    inconsistent casing just because it doesn't match Python's .title()."""
+    df = pd.DataFrame({"id": [1, 2, 3, 4], "dept": ["HR", "HR", "Sales", "Sales"]})
+    profile = _profile(
+        [_column_profile("id", "id"), _column_profile("dept", "categorical")]
+    )
+    result_df, actions, _, _ = apply_repairs(df, profile)
+    assert list(result_df["dept"]) == ["HR", "HR", "Sales", "Sales"]
+    assert not any(a.column == "dept" for a in actions)
 
 
 def test_apply_repairs_imputes_median_for_numeric_nulls() -> None:

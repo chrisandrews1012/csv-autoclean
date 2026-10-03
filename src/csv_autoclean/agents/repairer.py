@@ -10,8 +10,8 @@ from csv_autoclean.tools import (
     detect_case_inconsistency,
     is_valid_email,
     load_dataframe,
+    normalize_case_inconsistency,
     save_dataframe,
-    standardize_case,
     standardize_date,
 )
 
@@ -217,10 +217,13 @@ def apply_repairs(
         elif inferred == "categorical":
             bad_case = detect_case_inconsistency(df[col])
             if bad_case > 0:
-                example_before = df[col].dropna().iloc[0]
-                df[col] = df[col].apply(
-                    lambda x: standardize_case(str(x), "title") if pd.notna(x) else x
+                normalized = normalize_case_inconsistency(df[col])
+                changed = df[col].notna() & (
+                    df[col].astype(str) != normalized.astype(str)
                 )
+                example_before = df.loc[changed, col].iloc[0]
+                example_after = normalized.loc[changed].iloc[0]
+                df[col] = normalized
                 actions.append(
                     RepairAction(
                         column=col,
@@ -228,7 +231,7 @@ def apply_repairs(
                         action_taken="reformatted",
                         rows_affected=bad_case,
                         before_example=str(example_before),
-                        after_example=str(example_before).title(),
+                        after_example=str(example_after),
                         reason=(
                             "Inconsistent casing creates duplicate categories "
                             "in groupby and filter operations."

@@ -143,8 +143,27 @@ def count_non_standard_dates(series: pd.Series) -> int:
     return int((~series.dropna().astype(str).str.match(pattern)).sum())
 
 
+def _dominant_casing_by_key(series: pd.Series) -> dict[str, str]:
+    from collections import Counter
+
+    groups: dict[str, Counter[str]] = {}
+    for value in series.dropna():
+        key = str(value).lower()
+        groups.setdefault(key, Counter())[str(value)] += 1
+    return {key: counts.most_common(1)[0][0] for key, counts in groups.items()}
+
+
 def detect_case_inconsistency(series: pd.Series) -> int:
-    return int(series.dropna().apply(lambda x: str(x) != str(x).title()).sum())
+    dominant = _dominant_casing_by_key(series)
+    mismatched = series.dropna().apply(lambda x: str(x) != dominant[str(x).lower()])
+    return int(mismatched.sum())
+
+
+def normalize_case_inconsistency(series: pd.Series) -> pd.Series:
+    dominant = _dominant_casing_by_key(series)
+    return series.apply(  # type: ignore[no-any-return]
+        lambda x: dominant[str(x).lower()] if pd.notna(x) else x
+    )
 
 
 # Missingness mechanism detection
