@@ -33,11 +33,6 @@ repairer_agent = Agent(output_type=RepairReport, system_prompt=SYSTEM_PROMPT)
 # Columns with more than 50% nulls are too sparse to auto-repair.
 SPARSE_THRESHOLD = 0.5
 
-# Maximum share of rows that can be dropped for a single column before the
-# action is escalated to unresolved instead. Dropping more than this risks
-# meaningful data loss, especially on small datasets.
-DROP_THRESHOLD = 0.05
-
 
 def apply_repairs(
     df: pd.DataFrame,
