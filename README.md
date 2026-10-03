@@ -5,6 +5,11 @@ a list of every issue found and fixed. Four agents, each with a single
 responsibility, pass a typed result to the next: nothing is hardcoded to
 a particular dataset or schema.
 
+See [`docs/architecture.md`](docs/architecture.md) for the design
+reasoning behind the four-agent split, and
+[`docs/statistics-and-repairs.md`](docs/statistics-and-repairs.md) for
+exactly what each statistical check and repair does.
+
 ## How it works
 
 ```
